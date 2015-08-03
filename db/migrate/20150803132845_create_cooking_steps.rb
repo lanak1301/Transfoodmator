@@ -4,6 +4,7 @@ class CreateCookingSteps < ActiveRecord::Migration
       t.integer :step_count
       t.string :name
       t.time :time
+      t.references :recipe, index: true, foreign_key: true
 
       t.timestamps null: false
     end
