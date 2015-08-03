@@ -1,0 +1,10 @@
+<li>
+  <span>
+    <input name="recipe[cooking_steps_attributes][][name]" value="<%= cooking_step.name %>" placeholder="Step" />
+  </span>
+  <span>
+    <input name="recipe[cooking_steps_attributes][][time]" value="<%= cooking_step.time %>" placeholder="Time"/>
+  </span>
+
+  <input type="hidden" name="recipe[cooking_steps_attributes][][id]" value="<%= cooking_step.id %>" />
+</li>

@@ -1,37 +1,40 @@
 <%= form_for @recipe do |f| %>
   <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <span><%= f.label :name %></span>
+    <span><%= f.text_field :name %></span>
   </p>
   <p>
-    <%= f.label :servings %><br />
-    <%= f.text_field :servings %>
+    <span><%= f.label :servings %></span>
+    <span><%= f.text_field :servings %></span>
   </p>
+  
   <p> Ingredients:
-    <ul>
-      <% @recipe.ingredients.each do |ingredient|%>
-        <li>
-          <p>
-            <input name="recipe[ingredients_attributes][][name]" value="<%= ingredient.name %>"/>
-          </p>
-          <p>
-            <input name="recipe[ingredients_attributes][][quantity]" value="<%= ingredient.quantity %>"/>
-          </p>
-
-        </li>
+    <ul class="ul_ingredients">
+      <% @recipe.ingredients.order(created_at: :desc).each do |ingredient|%>
+        <%= render partial: "ingredients/form", locals: {ingredient: ingredient} %>
       <% end %>
-      <li>
-        <p>
-          <input name="recipe[ingredients_attributes][][name]"/>
-        </p>
-        <p>
-          <input name="recipe[ingredients_attributes][][quantity]"/>
-        </p>
-
-      </li>
     </ul>
+    <a id="new_ingredient" href="#">Add New Ingredient</a>
   </p>
 
+  <p> Cooking Steps:
+    <ol class="ol_cooking_steps">
+      <% @recipe.cooking_steps.order(created_at: :desc).each do |cooking_step|%>
+        <%= render partial: "cooking_steps/form", locals: {cooking_step: cooking_step} %>
+      <% end %>
+    </ol>
+    <a id="new_cooking_step" href="#">Add New Cooking Step</a>
+  </p>
 
   <%= f.submit %>
 <% end  %>
+
+<script>
+  $("#new_ingredient").on('click', function() {
+    $(".ul_ingredients").append("<%= escape_javascript(render partial: "ingredients/form", locals: {ingredient: Ingredient.new})%>")
+  });
+
+  $("#new_cooking_step").on('click', function() {
+    $(".ol_cooking_steps").append("<%= escape_javascript(render partial: "cooking_steps/form", locals: {cooking_step: CookingStep.new})%>")
+  });
+</script>
