@@ -1,0 +1,37 @@
+<%= form_for @recipe do |f| %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :servings %><br />
+    <%= f.text_field :servings %>
+  </p>
+  <p> Ingredients:
+    <ul>
+      <% @recipe.ingredients.each do |ingredient|%>
+        <li>
+          <p>
+            <input name="recipe[ingredients_attributes][][name]" value="<%= ingredient.name %>"/>
+          </p>
+          <p>
+            <input name="recipe[ingredients_attributes][][quantity]" value="<%= ingredient.quantity %>"/>
+          </p>
+
+        </li>
+      <% end %>
+      <li>
+        <p>
+          <input name="recipe[ingredients_attributes][][name]"/>
+        </p>
+        <p>
+          <input name="recipe[ingredients_attributes][][quantity]"/>
+        </p>
+
+      </li>
+    </ul>
+  </p>
+
+
+  <%= f.submit %>
+<% end  %>

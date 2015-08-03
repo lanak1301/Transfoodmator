@@ -20,9 +20,12 @@ ActiveRecord::Schema.define(version: 20150803132845) do
     t.integer  "step_count"
     t.string   "name"
     t.time     "time"
+    t.integer  "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "cooking_steps", ["recipe_id"], name: "index_cooking_steps_on_recipe_id", using: :btree
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
@@ -49,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150803132845) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "cooking_steps", "recipes"
   add_foreign_key "ingredients", "recipes"
   add_foreign_key "ingredients", "unit_of_measurements"
 end

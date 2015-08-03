@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  # protect_from_forgery with: :null_session
+  skip_before_filter :verify_authenticity_token
 
 #   recipes GET    /recipes(.:format)          recipes#index
 #             POST   /recipes(.:format)          recipes#create
@@ -15,6 +17,7 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
+    @recipe.ingredients.build
   end
 
   def create
@@ -49,8 +52,7 @@ class RecipesController < ApplicationController
 # ????????
   private
   def recipe_params
-    params.require(:recipe).permit(:name, :servings)
+    params.require(:recipe).permit(:name, :servings, ingredients_attributes: [:name, :quantity, :unit_of_measurement_id])
   end
-
 
 end
