@@ -1,7 +1,24 @@
 <h2><%= @recipe.name %>
   <%= link_to "(edit)", edit_recipe_path(@recipe) %>
 </h2>
-
 <div>
   <p>Servings : <%= @recipe.servings %> </p>
+</div>
+
+<div class="ingredients_container">
+  <% @recipe.ingredients.each do |ingredient| %>
+    <span><%= ingredient.name %></span>
+    <span><%= ingredient.quantity %></span>
+    <span><%= ingredient.unit_of_measurement.name %></span>
+  </br>
+  <% end %>
+</div>
+
+<div class="cooking_steps_container">
+  <% @recipe.cooking_steps.each do |cooking_step| %>
+    <p>
+      <span><%= cooking_step.name %></span>
+      <span><%= cooking_step.time %></span>
+    </p>
+  <% end %>
 </div>

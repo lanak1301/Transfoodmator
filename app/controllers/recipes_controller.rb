@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   # protect_from_forgery with: :null_session
   skip_before_filter :verify_authenticity_token
+  before_action :authenticate_user!
 
 #   recipes GET    /recipes(.:format)          recipes#index
 #             POST   /recipes(.:format)          recipes#create

@@ -4,13 +4,16 @@
   <title>Transfoodmator</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag :defaults, :cache => true %>  
+  <%= javascript_include_tag :defaults, :cache => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
 
-  <%= link_to ("<h1>Transfoodmator</h1>").html_safe, recipes_path(@recipes) %>
-
+  <% if user_signed_in? %>
+    <%= link_to ("<h1>Transfoodmator</h1>").html_safe, destroy_user_session_path, method: :delete %>
+  <% end %>
 <%= yield %>
 
 </body>
