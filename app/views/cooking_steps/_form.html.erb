@@ -6,5 +6,8 @@
     <input name="recipe[cooking_steps_attributes][][time]" value="<%= cooking_step.time %>" placeholder="Time"/>
   </span>
 
-  <input type="hidden" name="recipe[cooking_steps_attributes][][id]" value="<%= cooking_step.id %>" />
+  <input type='checkbox' name='recipe[cooking_steps_attributes][][_destroy]' />
+
+  <%= hidden_field_tag 'recipe[cooking_steps_attributes][][id]', cooking_step.id %>
+
 </li>

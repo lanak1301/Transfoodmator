@@ -6,4 +6,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-UnitOfMeasurement.create([ { name: 'tablespoon' }, { name: 'teaspoon' }, { name: 'cup' } ])
+UnitOfMeasurement.create([ {name: 'unit' }, { name: 'tablespoon' }, { name: 'teaspoon' }, { name: 'cup' }, { name: 'slice' } ])
