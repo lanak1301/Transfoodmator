@@ -12,7 +12,8 @@
   <p class="alert"><%= alert %></p>
 
   <% if user_signed_in? %>
-    <%= link_to ("<h1>Transfoodmator</h1>").html_safe, destroy_user_session_path, method: :delete %>
+    <%= link_to ("<h1>Transfoodmator</h1>").html_safe, recipes_path%>
+    <%= link_to "#{current_user.email} :Sign Out" , destroy_user_session_path, method: :delete %>
   <% end %>
 <%= yield %>
 

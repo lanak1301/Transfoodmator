@@ -6,8 +6,17 @@
     <input name="recipe[cooking_steps_attributes][][time]" value="<%= cooking_step.time %>" placeholder="Time"/>
   </span>
 
-  <input type='checkbox' name='recipe[cooking_steps_attributes][][_destroy]' />
+  <input class='hide' type='checkbox' name='recipe[ingredients_attributes][][_destroy]' />
+  <button>Delete</button>
 
   <%= hidden_field_tag 'recipe[cooking_steps_attributes][][id]', cooking_step.id %>
 
 </li>
+
+<script>
+  $(':button').on('click', function(event) {
+    event.preventDefault();
+    $(this).closest('li').fadeOut();
+    $(':checkbox').check();
+  })
+</script>

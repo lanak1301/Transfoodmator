@@ -1,6 +1,7 @@
 <h2><%= @recipe.name %>
   <%= link_to "(edit)", edit_recipe_path(@recipe) %>
 </h2>
+  <span>Contributed by: </span><%= @recipe.creator.email%>
 <div>
   <p>Servings : <%= @recipe.servings %> </p>
 </div>

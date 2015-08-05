@@ -14,18 +14,24 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.all
+    # @recipes = current_user.recipes
   end
 
   def new
     @recipe = Recipe.new
+    @recipe.creator_id = current_user.id
+    # @recipe = current_user.recipes.build
+
     @recipe.ingredients.build
   end
 
   def create
-    @recipe = Recipe.create(recipe_params)
-
-
-    redirect_to recipe_path(@recipe)
+    @recipe = Recipe.new(recipe_params)
+    @recipe.creator_id = current_user.id
+    if @recipe.save!
+      redirect_to recipe_path(@recipe) and return
+    end
+    redirect_to new_recipe_path and return
   end
 
   def show

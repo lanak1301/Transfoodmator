@@ -13,7 +13,16 @@
     </select>
   </span>
 
-  <input type='checkbox' name='recipe[ingredients_attributes][][_destroy]' />
+  <input class='hide' type='checkbox' name='recipe[ingredients_attributes][][_destroy]' />
+  <button>Delete</button>
 
-  <input type="hidden" name="recipe[ingredients_attributes][][id]" value="<%= ingredient.id %>" />
+  <input type='hidden' name='recipe[ingredients_attributes][][id]' value='<%= ingredient.id %>' />
 </li>
+
+<script>
+  $(':button').on('click', function(event) {
+    event.preventDefault();
+    $(this).closest('li').fadeOut();
+    $(':checkbox').check();
+  })
+</script>

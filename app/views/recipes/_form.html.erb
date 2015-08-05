@@ -1,4 +1,6 @@
 <%= form_for @recipe do |f| %>
+  <span>Contributed by: </span><%= @recipe.creator.email%>
+
   <p>
     <span><%= f.label :name %></span>
     <span><%= f.text_field :name %></span>
@@ -27,6 +29,10 @@
   </p>
 
   <%= f.submit %>
+<% end  %>
+
+<%= form_for(@recipe, method: :delete) do |f| %>
+  <%= f.submit "Delete Recipe", class: "delete" %>
 <% end  %>
 
 <script>
