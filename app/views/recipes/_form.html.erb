@@ -1,4 +1,4 @@
-<%= form_for @recipe do |f| %>
+<%= form_for [@user, @recipe] do |f| %>
   <span>Contributed by: </span><%= @recipe.creator.email%>
 
   <p>
@@ -10,9 +10,15 @@
     <span><%= f.text_field :servings %></span>
   </p>
 
+  <p>
+    <span><%= f.file_field :avatar %></span>
+    <%= image_tag @recipe.avatar if @recipe.avatar? %>
+  </p>
+
   <p> Ingredients:
     <ul class="ul_ingredients">
-      <% @recipe.ingredients.order(created_at: :asc).each do |ingredient|%>
+      <% @ingredients = @recipe.ingredients.order(name: :asc)%>
+      <% @recipe.ingredients.each do |ingredient|%>
         <%= render partial: "ingredients/form", locals: {ingredient: ingredient} %>
       <% end %>
     </ul>
@@ -21,26 +27,38 @@
 
   <p> Cooking Steps:
     <ol class="ol_cooking_steps">
-      <% @recipe.cooking_steps.order(created_at: :asc).each do |cooking_step|%>
+      <% @cooking_steps = @recipe.cooking_steps %>
+      <% @cooking_steps.each do |cooking_step|%>
         <%= render partial: "cooking_steps/form", locals: {cooking_step: cooking_step} %>
       <% end %>
     </ol>
     <a id="new_cooking_step" href="#">Add New Cooking Step</a>
   </p>
 
+  <%= f.hidden_field :original_recipe_id %>
+
   <%= f.submit %>
 <% end  %>
 
-<%= form_for(@recipe, method: :delete) do |f| %>
+<%= form_for([@user, @recipe], method: :delete) do |f| %>
   <%= f.submit "Delete Recipe", class: "delete" %>
 <% end  %>
 
 <script>
-  $("#new_ingredient").on('click', function() {
+  $("#new_ingredient").on('click', function(event) {
+    event.preventDefault();
     $("<%= escape_javascript(render partial: "ingredients/form", locals: {ingredient: Ingredient.new})%>").appendTo(".ul_ingredients").hide().fadeIn();
   });
 
-  $("#new_cooking_step").on('click', function() {
+  $("#new_cooking_step").on('click', function(event) {
+    event.preventDefault();
     $("<%= escape_javascript(render partial: "cooking_steps/form", locals: {cooking_step: CookingStep.new})%>").appendTo(".ol_cooking_steps").hide().fadeIn();
   });
+
+  $('.ul_ingredients, .ol_cooking_steps').on('click', ':button', function(event) {
+    event.preventDefault();
+    var $li = $(this).closest('li');
+    $li.fadeOut();
+    $li.find(':checkbox').prop( "checked", true );
+  })
 </script>

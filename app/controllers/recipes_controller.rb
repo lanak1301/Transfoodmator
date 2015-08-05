@@ -3,63 +3,83 @@ class RecipesController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_action :authenticate_user!
 
-#   recipes GET    /recipes(.:format)          recipes#index
-#             POST   /recipes(.:format)          recipes#create
-#  new_recipe GET    /recipes/new(.:format)      recipes#new
-# edit_recipe GET    /recipes/:id/edit(.:format) recipes#edit
-#      recipe GET    /recipes/:id(.:format)      recipes#show
-#             PATCH  /recipes/:id(.:format)      recipes#update
-#             PUT    /recipes/:id(.:format)      recipes#update
-#             DELETE /recipes/:id(.:format)      recipes#destroy
-
   def index
-    @recipes = Recipe.all
-    # @recipes = current_user.recipes
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+    @recipes = @user.recipes
   end
 
   def new
-    @recipe = Recipe.new
-    @recipe.creator_id = current_user.id
-    # @recipe = current_user.recipes.build
+    @user = current_user
+    @recipe = Recipe.new(creator: current_user)
 
     @recipe.ingredients.build
   end
 
   def create
+    @user = current_user
     @recipe = Recipe.new(recipe_params)
     @recipe.creator_id = current_user.id
-    if @recipe.save!
-      redirect_to recipe_path(@recipe) and return
+    if !@recipe.avatar? && @recipe.original_recipe
+      @recipe.avatar = @recipe.original_recipe.avatar
     end
-    redirect_to new_recipe_path and return
+    if @recipe.save!
+      redirect_to user_recipe_path(@user, @recipe) and return
+    end
+    redirect_to new_user_recipe_path(@user) and return
   end
 
   def show
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
     @recipe = Recipe.find(params[:id])
+  end
+
+  def copy
+    @user = current_user
+
+    original_recipe = Recipe.find(params[:recipe_id])
+    @recipe = Recipe.new(name: original_recipe.name,
+                     servings: original_recipe.servings,
+                       avatar: original_recipe.avatar,
+                      creator: original_recipe.creator,
+           original_recipe_id: original_recipe.id )
+
+    original_recipe.ingredients.each do |ingredient|
+      @recipe.ingredients.build(name: ingredient.name, quantity: ingredient.quantity, unit_of_measurement: ingredient.unit_of_measurement)
+    end
+
+    # @recipe.ingredients.build(name: original_recipe.ingredients.first.name, quantity: original_recipe.ingredients.first.quantity, unit_of_measurement: original_recipe.ingredients.first.unit_of_measurement)
+    # @recipe.ingredients.build(name: original_recipe.ingredients.last.name, quantity: original_recipe.ingredients.last.quantity, unit_of_measurement: original_recipe.ingredients.last.unit_of_measurement)
+
+    @recipe.cooking_steps.build(name: original_recipe.cooking_steps.first.name, time: original_recipe.cooking_steps.first.time)
+    @recipe.cooking_steps.build(name: original_recipe.cooking_steps.last.name, time: original_recipe.cooking_steps.last.time)
+
+    render :new
   end
 
   def edit
-    @recipe = Recipe.find(params[:id])
+    @user = current_user
+    @recipe = @user.recipes.find(params[:id])
   end
 
   def update
-    @recipe = Recipe.find(params[:id])
+    @recipe = current_user.recipes.find(params[:id])
     @recipe.update(recipe_params)
 
-    redirect_to recipe_path(@recipe)
+    redirect_to user_recipe_path(current_user, @recipe)
   end
 
   def destroy
-    @recipe = Recipe.find(params[:id])
+    @user = current_user
+    @recipe = @user.recipes.find(params[:id])
     @recipe.destroy
 
-    redirect_to recipes_path
+    redirect_to user_recipes_path(@user)
   end
 
 
   private
   def recipe_params
-    params.require(:recipe).permit(:name, :servings, ingredients_attributes: [:id, :name, :quantity, :unit_of_measurement_id, :_destroy], cooking_steps_attributes: [:id, :name, :time, :_destroy])
+    params.require(:recipe).permit(:name, :servings, :avatar, :original_recipe_id ,ingredients_attributes: [:id, :name, :quantity, :unit_of_measurement_id, :_destroy], cooking_steps_attributes: [:id, :name, :time, :_destroy])
   end
 
 end

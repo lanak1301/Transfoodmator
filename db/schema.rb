@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804141607) do
+ActiveRecord::Schema.define(version: 20150805191326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,12 +42,15 @@ ActiveRecord::Schema.define(version: 20150804141607) do
   create_table "recipes", force: :cascade do |t|
     t.string   "name"
     t.string   "servings"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "creator_id"
+    t.string   "avatar"
+    t.integer  "original_recipe_id"
   end
 
   add_index "recipes", ["creator_id"], name: "index_recipes_on_creator_id", using: :btree
+  add_index "recipes", ["original_recipe_id"], name: "index_recipes_on_original_recipe_id", using: :btree
 
   create_table "unit_of_measurements", force: :cascade do |t|
     t.string   "name"
@@ -68,6 +71,8 @@ ActiveRecord::Schema.define(version: 20150804141607) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "avatar"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

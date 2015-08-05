@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+
+gem 'rmagick'
+# Bundle Carrierwave
+gem 'carrierwave'
 # Bundle Twitter Bootsrtap
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS

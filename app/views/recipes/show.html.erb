@@ -1,10 +1,16 @@
 <h2><%= @recipe.name %>
-  <%= link_to "(edit)", edit_recipe_path(@recipe) %>
+
+  <% if @user == current_user %>
+    <%= link_to "(edit)", edit_user_recipe_path(@user, @recipe) %>
+  <% end %>
+  <%= link_to "(copy)", user_recipe_copy_path(@user, @recipe) %>
 </h2>
-  <span>Contributed by: </span><%= @recipe.creator.email%>
+  <span>Contributed by: </span><%= link_to @recipe.creator.name, user_path(@user)%>
 <div>
   <p>Servings : <%= @recipe.servings %> </p>
 </div>
+
+<%= image_tag @recipe.avatar %>
 
 <div class="ingredients_container">
   <% @recipe.ingredients.each do |ingredient| %>

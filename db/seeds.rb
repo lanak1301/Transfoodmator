@@ -12,7 +12,7 @@ UnitOfMeasurement.destroy_all
 
 
 user = User.create(email: 'hello@hello.com', password: 'hellohello')
-recipe = Recipe.create( {name: 'Burger', servings: 4, creator: user} )
+recipe = Recipe.create( {name: 'Burger', servings: 4, creator: user, owner: user} )
 unitOfMeasurement = UnitOfMeasurement.create([ {name: '---' },
                                                { name: 'pound' },
                                                { name: 'tablespoon' },

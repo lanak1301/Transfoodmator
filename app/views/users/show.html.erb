@@ -1,0 +1,18 @@
+<div><%= @user.email %></div>
+<div class='profile_pic'><%= image_tag @user.avatar %></div>
+
+<div class='recipe_board'>
+  <h2>Recipes
+    <% if @user == current_user %>
+      <%= link_to "Add New", new_user_recipe_path(@user, @recipe) %>
+    <% end %> 
+  </h2>
+  <div class='profile_recipes'>
+    <% @recipes.each do |recipe| %>
+      <%= link_to user_recipe_path(recipe.creator, recipe) do %>
+        <div class="recipe_name"><%= recipe.name %></div>
+        <div class='recipr_image'><%= image_tag recipe.avatar %></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
