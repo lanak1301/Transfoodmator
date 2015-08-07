@@ -15,8 +15,21 @@
 
   <div class="field">
     <%= f.label :avatar, 'Picture' %><br />
+    <%= image_tag @user.avatar, class: 'avatar_preview' %>
     <%= f.file_field :avatar, autofocus: true %>
   </div>
+
+  <script>
+    $('body').on('change', '#user_avatar', function () {
+      if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('.avatar_preview').attr('src', e.target.result).width(100).height(100);
+        };
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+  </script>
 
   <div class="field">
     <%= f.label :password %>
