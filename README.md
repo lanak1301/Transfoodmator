@@ -1,5 +1,11 @@
 # Transfoodmator
 
+###YouTube Preview
+ http://youtu.be/uXQMQLqlzH8 
+ 
+###Heroku link
+https://wdi-dc6-lana-transfoodmator.herokuapp.com/users/sign_in
+
 ###Wire Frames
 https://drive.google.com/file/d/0B4hnQ9Bdwqx9Q25WdmlKZ0dNMlk/view?usp=sharing
 
