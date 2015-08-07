@@ -19,20 +19,24 @@
 
     <%= image_tag @recipe.avatar.big %>
 
+    <div class="recipe_title section">Ingredients: </div>
     <div class="ingredients_container">
       <% @recipe.ingredients.each do |ingredient| %>
-        <span>√&nbsp;<%= ingredient.name %></span>
-        <span><%= ingredient.quantity %></span>
-      </br>
+        <div class="row">
+          <div class="col-md-10">√&nbsp;<%= ingredient.name %></div>
+          <div class="col-md-2"><%= ingredient.quantity %></div>
+        </div>
       <% end %>
     </div>
 
+    <div class="recipe_title section">Cooking Steps: </div>
     <div class="cooking_steps_container">
       <% @recipe.cooking_steps.each do |cooking_step| %>
-        <p>
-          <span><%= cooking_step.name %></span>
-          <span><%= cooking_step.time %></span>
-        </p>
+        <div class="row">
+          <div class="col-md-2">Step <%=cooking_step.step_count%></div>
+          <div class="col-md-8"><%= cooking_step.name %></div>
+          <div class="col-md-2"><%= cooking_step.time %></div>
+        </div>
       <% end %>
     </div>
   </div>
