@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20150805191326) do
   create_table "cooking_steps", force: :cascade do |t|
     t.integer  "step_count"
     t.string   "name"
-    t.time     "time"
+    t.string   "time"
     t.integer  "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150805191326) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
-    t.integer  "quantity"
+    t.string   "quantity"
     t.integer  "recipe_id"
     t.integer  "unit_of_measurement_id"
     t.datetime "created_at",             null: false

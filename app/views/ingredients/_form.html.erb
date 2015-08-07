@@ -1,20 +1,10 @@
 <li>
-  <span>
-    <input name="recipe[ingredients_attributes][][name]" value="<%= ingredient.name %>" placeholder="Ingredient" />
-  </span>
-  <span>
-    <input name="recipe[ingredients_attributes][][quantity]" value="<%= ingredient.quantity %>" placeholder="Quantity"/>
-  </span>
-  <span>
-    <select name="recipe[ingredients_attributes][][unit_of_measurement_id]">
-      <% UnitOfMeasurement.all.each do |uom| %>
-        <option value="<%= uom.id %>" <%= "selected" if ingredient.unit_of_measurement_id == uom.id %>><%= uom.name  %></option>
-      <% end %>
-    </select>
-  </span>
+  <input name="recipe[ingredients_attributes][][name]" value="<%= ingredient.name %>" placeholder="Ingredient" />
+  <input name="recipe[ingredients_attributes][][quantity]" value="<%= ingredient.quantity %>" placeholder="Quantity" />
 
-  <input  type='checkbox' name='recipe[ingredients_attributes][][_destroy]' />
-  <button>Delete</button>
+  <input class='hide' type='checkbox' name='recipe[ingredients_attributes][][_destroy]' />
+
+  <i class="fa fa-trash-o delete"></i>
 
   <input type='hidden' name='recipe[ingredients_attributes][][id]' value='<%= ingredient.id %>' />
 </li>

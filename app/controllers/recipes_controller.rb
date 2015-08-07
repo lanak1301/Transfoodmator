@@ -13,6 +13,8 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(creator: current_user)
 
     @recipe.ingredients.build
+    @recipe.cooking_steps.build
+    @recipes = Recipe.all
   end
 
   def create
@@ -22,6 +24,7 @@ class RecipesController < ApplicationController
     if !@recipe.avatar? && @recipe.original_recipe
       @recipe.avatar = @recipe.original_recipe.avatar
     end
+
     if @recipe.save!
       redirect_to user_recipe_path(@user, @recipe) and return
     end
@@ -31,6 +34,7 @@ class RecipesController < ApplicationController
   def show
     @user = params[:user_id] ? User.find(params[:user_id]) : current_user
     @recipe = Recipe.find(params[:id])
+    @users = User.all
   end
 
   def copy
@@ -73,7 +77,7 @@ class RecipesController < ApplicationController
     @recipe = @user.recipes.find(params[:id])
     @recipe.destroy
 
-    redirect_to user_recipes_path(@user)
+    redirect_to user_path(@user)
   end
 
 

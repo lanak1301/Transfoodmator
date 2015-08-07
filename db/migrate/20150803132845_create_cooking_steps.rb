@@ -3,7 +3,7 @@ class CreateCookingSteps < ActiveRecord::Migration
     create_table :cooking_steps do |t|
       t.integer :step_count
       t.string :name
-      t.time :time
+      t.string :time
       t.references :recipe, index: true, foreign_key: true
 
       t.timestamps null: false

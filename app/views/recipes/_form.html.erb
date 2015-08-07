@@ -1,61 +1,154 @@
 <%= form_for [@user, @recipe] do |f| %>
-  <span>Contributed by: </span><%= @recipe.creator.email%>
+  <span class='recipe_title'>Contributed by: </span><%= @recipe.creator.email%>
 
-  <p>
-    <span><%= f.label :name %></span>
-    <span><%= f.text_field :name %></span>
-  </p>
-  <p>
-    <span><%= f.label :servings %></span>
-    <span><%= f.text_field :servings %></span>
-  </p>
+  <div class="row">
+    <div class="col-md-3"><%= f.label :name, "Title" %></div>
+    <div class="col-md-9 input_title"><%= f.text_field :name, autocomplete: "off" %></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"><%= f.label :servings %></div>
+    <div class="col-md-9 input_title"><%= f.text_field :servings, autocomplete: "off" %></div>
+  </div>
 
-  <p>
+  <div>
+    <%= image_tag @recipe.avatar, class: 'avatar_preview' %>
     <span><%= f.file_field :avatar %></span>
-    <%= image_tag @recipe.avatar if @recipe.avatar? %>
-  </p>
+  </div>
 
-  <p> Ingredients:
-    <ul class="ul_ingredients">
-      <% @ingredients = @recipe.ingredients.order(name: :asc)%>
-      <% @recipe.ingredients.each do |ingredient|%>
-        <%= render partial: "ingredients/form", locals: {ingredient: ingredient} %>
-      <% end %>
-    </ul>
-    <a id="new_ingredient" href="#">Add New Ingredient</a>
-  </p>
+  <script>
+    $('body').on('change', '#recipe_avatar', function () {
+      if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('.avatar_preview').attr('src', e.target.result).width(100).height(100);
+        };
 
-  <p> Cooking Steps:
-    <ol class="ol_cooking_steps">
-      <% @cooking_steps = @recipe.cooking_steps %>
-      <% @cooking_steps.each do |cooking_step|%>
-        <%= render partial: "cooking_steps/form", locals: {cooking_step: cooking_step} %>
-      <% end %>
-    </ol>
-    <a id="new_cooking_step" href="#">Add New Cooking Step</a>
-  </p>
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+  </script>
+
+  <div class="row">
+    <div class="col-md-3 recipe_title">Ingredients: </div>
+    <div class="col-md-9">
+      <ul class="ul_ingredients">
+        <% @recipe.ingredients.each do |ingredient|%>
+          <%= render partial: "ingredients/form", locals: {ingredient: ingredient} %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 recipe_title"><a id="new_ingredient" href="#">Add New Ingredient</a></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 recipe_title">Cooking Steps: </div>
+    <div class="col-md-9">
+      <ol class="ol_cooking_steps">
+        <% @recipe.cooking_steps.each do |cooking_step|%>
+          <%= render partial: "cooking_steps/form", locals: {cooking_step: cooking_step} %>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 recipe_title"><a id="new_cooking_step" href="#">Add New Cooking Step</a></div>
+  </div>
 
   <%= f.hidden_field :original_recipe_id %>
+<div class="row">
+  <% if @recipe.persisted? %>
+    <div class="col-md-3">
+      <button type="button" data-toggle="modal" data-target=".confirm_deletion">Delete Recipe</button>
+    </div>
+  <% end %>
 
-  <%= f.submit %>
+  <div class="col-md-3">
+    <%= f.submit %>
+  </div>
+</div>
 <% end  %>
 
-<%= form_for([@user, @recipe], method: :delete) do |f| %>
-  <%= f.submit "Delete Recipe", class: "delete" %>
-<% end  %>
+<div class="modal fade confirm_deletion" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <h3>Are you sure you want to Delete this Recipe?</h3>
+      <%= form_for([@user, @recipe], method: :delete) do |f| %>
+        <%= f.submit "Delete Recipe", class: "delete" %>
+      <% end  %>
+    </div>
+  </div>
+</div>
+
+
+
 
 <script>
+//Modal for Delete
+// $('#myModal').on('shown.bs.modal', function () {
+//   $('#myInput').focus()
+// })
+
+
+// Add Ingredient
+  function addNewIngredient() {
+    $("<%= escape_javascript(render partial: "ingredients/form", locals: {ingredient: Ingredient.new})%>").appendTo(".ul_ingredients").hide().fadeIn();
+  }
+
   $("#new_ingredient").on('click', function(event) {
     event.preventDefault();
-    $("<%= escape_javascript(render partial: "ingredients/form", locals: {ingredient: Ingredient.new})%>").appendTo(".ul_ingredients").hide().fadeIn();
+    addNewIngredient();
   });
+
+  $(".ul_ingredients").on('keydown', "[name='recipe[ingredients_attributes][][quantity]']", function(event){
+    if(event.keyCode == 13)
+    {
+      event.preventDefault();
+    }
+  });
+
+  $(".ul_ingredients").on('keyup', "[name='recipe[ingredients_attributes][][quantity]']", (function(event){
+    if(event.keyCode == 13)
+    {
+      event.preventDefault();
+      addNewIngredient();
+    }
+  }));
+
+
+// Add CookingStep
+  function addNewCookingStep() {
+    $("<%= escape_javascript(render partial: "cooking_steps/form", locals: {cooking_step: CookingStep.new})%>").appendTo(".ol_cooking_steps").hide().fadeIn();
+  }
 
   $("#new_cooking_step").on('click', function(event) {
     event.preventDefault();
-    $("<%= escape_javascript(render partial: "cooking_steps/form", locals: {cooking_step: CookingStep.new})%>").appendTo(".ol_cooking_steps").hide().fadeIn();
+    addNewCookingStep();
   });
 
-  $('.ul_ingredients, .ol_cooking_steps').on('click', ':button', function(event) {
+  $(".ol_cooking_steps").on('keydown', "[name='recipe[cooking_steps_attributes][][time]']", function(event){
+    if(event.keyCode == 13)
+    {
+      event.preventDefault();
+    }
+  });
+
+  $(".ol_cooking_steps").on('keyup', "[name='recipe[cooking_steps_attributes][][time]']", (function(event){
+    if(event.keyCode == 13)
+    {
+      event.preventDefault();
+      addNewCookingStep();
+    }
+  }));
+
+// Modal for Delete
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').focus()
+})
+
+// Delete
+  $('.ul_ingredients, .ol_cooking_steps').on('click', '.delete', function(event) {
     event.preventDefault();
     var $li = $(this).closest('li');
     $li.fadeOut();

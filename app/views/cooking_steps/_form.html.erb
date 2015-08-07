@@ -1,14 +1,10 @@
 <li>
-  <span>
-    <input name="recipe[cooking_steps_attributes][][name]" value="<%= cooking_step.name %>" placeholder="Step" />
-  </span>
-  <span>
-    <input name="recipe[cooking_steps_attributes][][time]" value="<%= cooking_step.time %>" placeholder="Time"/>
-  </span>
+  <input name="recipe[cooking_steps_attributes][][name]" value="<%= cooking_step.name %>" placeholder="Step" />
+  <input name="recipe[cooking_steps_attributes][][time]" value="<%= cooking_step.time %>" placeholder="Time" />
 
-  <input class='hide' type='checkbox' name='recipe[ingredients_attributes][][_destroy]' />
-  <button>Delete</button>
+  <input class='hide' type='checkbox' name='recipe[cooking_steps_attributes][][_destroy]' />
 
-  <%= hidden_field_tag 'recipe[cooking_steps_attributes][][id]', cooking_step.id %>
+  <i class="fa fa-trash-o delete"></i>
 
+  <input type='hidden' name='recipe[cooking_steps_attributes][][id]' value='<%= cooking_step.id %>' />
 </li>

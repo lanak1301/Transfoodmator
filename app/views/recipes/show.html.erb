@@ -1,31 +1,43 @@
-<h2><%= @recipe.name %>
+<div class='wrapper'>
+  <div class='content'>
+    <h2 class='recipe_title'><%= @recipe.name %>
 
-  <% if @user == current_user %>
-    <%= link_to "(edit)", edit_user_recipe_path(@user, @recipe) %>
-  <% end %>
-  <%= link_to "(copy)", user_recipe_copy_path(@user, @recipe) %>
-</h2>
-  <span>Contributed by: </span><%= link_to @recipe.creator.name, user_path(@user)%>
-<div>
-  <p>Servings : <%= @recipe.servings %> </p>
+      <% if @recipe.creator == current_user %>
+        <%= link_to (edit_user_recipe_path(@user, @recipe)) do%>
+          <span class='title_link'><i class="fa fa-pencil"></i></i>&nbsp;edit recipe</span>
+        <% end %>
+      <% end %>
+      <%= link_to (user_recipe_copy_path(@user, @recipe)) do%>
+        <span class='title_link'><i class="fa fa-code-fork"></i>&nbsp;fork recipe</span>
+      <% end %>
+    </h2>
+
+    <div>
+      <span class='recipe_title'>Contributed by: </span><%= link_to @recipe.creator.name, user_path(@user)%>&nbsp;
+      <span class='recipe_title'>Servings : <%= @recipe.servings %> </span>
+    </div>
+
+    <%= image_tag @recipe.avatar.big %>
+
+    <div class="ingredients_container">
+      <% @recipe.ingredients.each do |ingredient| %>
+        <span>√&nbsp;<%= ingredient.name %></span>
+        <span><%= ingredient.quantity %></span>
+      </br>
+      <% end %>
+    </div>
+
+    <div class="cooking_steps_container">
+      <% @recipe.cooking_steps.each do |cooking_step| %>
+        <p>
+          <span><%= cooking_step.name %></span>
+          <span><%= cooking_step.time %></span>
+        </p>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-<%= image_tag @recipe.avatar %>
+<%= render partial: "recipiests", locals: { users: @users}%>
 
-<div class="ingredients_container">
-  <% @recipe.ingredients.each do |ingredient| %>
-    <span><%= ingredient.name %></span>
-    <span><%= ingredient.quantity %></span>
-    <span><%= ingredient.unit_of_measurement.name %></span>
-  </br>
-  <% end %>
-</div>
-
-<div class="cooking_steps_container">
-  <% @recipe.cooking_steps.each do |cooking_step| %>
-    <p>
-      <span><%= cooking_step.name %></span>
-      <span><%= cooking_step.time %></span>
-    </p>
-  <% end %>
-</div>
+<%= render partial: "profile", locals: { user: @recipe.creator } %>

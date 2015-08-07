@@ -1,0 +1,7 @@
+<div class='profile'>
+  <%= link_to(user_path(user)) do %>
+    <div><%= user.email %></div>
+    <div><%= user.name %></div>
+    <div class='profile_pic'><%= image_tag user.avatar.normal %></div>
+  <% end%>
+</div>

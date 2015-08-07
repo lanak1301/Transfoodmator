@@ -1,18 +1,25 @@
-<div><%= @user.email %></div>
-<div class='profile_pic'><%= image_tag @user.avatar %></div>
-
-<div class='recipe_board'>
-  <h2>Recipes
-    <% if @user == current_user %>
-      <%= link_to "Add New", new_user_recipe_path(@user, @recipe) %>
-    <% end %> 
-  </h2>
-  <div class='profile_recipes'>
-    <% @recipes.each do |recipe| %>
-      <%= link_to user_recipe_path(recipe.creator, recipe) do %>
-        <div class="recipe_name"><%= recipe.name %></div>
-        <div class='recipr_image'><%= image_tag recipe.avatar %></div>
-      <% end %>
-    <% end %>
+<div class='wrapper'>
+  <div class='content'>
+    <div class='recipe_board'>
+      <h2 style='font-weight:bold'>Recipes
+        <% if @user == current_user %>
+          <%= link_to "+", new_user_recipe_path(@user, @recipe) %>
+        <% end %>
+      </h2>
+      <div class='profile_recipes'>
+        <% @user.recipes.each do |recipe| %>
+          <div class='recipe_container'>
+            <%= link_to user_recipe_path(recipe.creator, recipe) do %>
+              <div class="recipe_name"><%= recipe.name %></div>
+              <div><%= image_tag recipe.avatar.small %></div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
+
+<%= render partial: "recipiests", locals: { users: @users} %>
+
+<%= render partial: "profile", locals: { user: @user } %>

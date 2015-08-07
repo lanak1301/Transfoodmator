@@ -2,7 +2,7 @@ class CreateIngredients < ActiveRecord::Migration
   def change
     create_table :ingredients do |t|
       t.string :name
-      t.integer :quantity
+      t.string :quantity
       t.references :recipe, index: true, foreign_key: true
       t.references :unit_of_measurement, index: true, foreign_key: true
 

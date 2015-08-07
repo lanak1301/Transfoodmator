@@ -1,0 +1,20 @@
+<div class="navigation">
+   <p><strong>Other Recipes</strong></p>
+   <ul>
+     <% recipes.each do |user| %>
+      <li>
+        <%= link_to(root_path(user)) do %>
+          <div style='float:left'>
+            <%= image_tag(recipe.avatar.tiny) %> &nbsp;
+          </div>
+          <div style='float:left'>
+            <%= user.name %><br/>
+            <span>Recipes: </span>
+            <%= user.recipes.count %>
+          </div>
+          <div style='clear:both'></div>
+        <% end %>
+      </li>
+    <% end%>
+   </ul>
+ </div>
