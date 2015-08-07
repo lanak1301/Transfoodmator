@@ -1,10 +1,14 @@
 <li>
-  <input name="recipe[ingredients_attributes][][name]" value="<%= ingredient.name %>" placeholder="Ingredient" />
-  <input name="recipe[ingredients_attributes][][quantity]" value="<%= ingredient.quantity %>" placeholder="Quantity" />
+  <div class="col-md-7 nested_input_title">
+    <input name="recipe[ingredients_attributes][][name]" value="<%= ingredient.name %>" placeholder="Ingredient" />
+  </div>
+  <div class="col-md-5 nested2_input_title">
+    <input name="recipe[ingredients_attributes][][quantity]" value="<%= ingredient.quantity %>" placeholder="Quantity" />
 
-  <input class='hide' type='checkbox' name='recipe[ingredients_attributes][][_destroy]' />
+    <input class='hide' type='checkbox' name='recipe[ingredients_attributes][][_destroy]' />
 
-  <i class="fa fa-trash-o delete"></i>
+    <i class="fa fa-trash-o delete"></i>
 
-  <input type='hidden' name='recipe[ingredients_attributes][][id]' value='<%= ingredient.id %>' />
+    <input type='hidden' name='recipe[ingredients_attributes][][id]' value='<%= ingredient.id %>' />
+  </div>
 </li>

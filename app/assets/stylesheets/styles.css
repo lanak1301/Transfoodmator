@@ -38,6 +38,8 @@ th {text-align: center;}
 .title_link{font-size: initial;}
 /*  Recipe Form */
 div.input_title input {width: 50%;}
+div.nested_input_title input {width: 100%;}
+div.nested2_input_title input {width: 75%;}
 /*  Form Avatar Preview*/
 .avatar_preview{width:100px; height:100px;}
 input {margin: 5px;}
@@ -49,14 +51,14 @@ ul, ol {list-style-type: none;}
 .delete{cursor:pointer;}
 /*  Ingredient items  */
 .ul_ingredients {padding: 0px;}
-.ul_ingredients li:hover {background-color: lightblue;}
-.ul_ingredients li .delete {display: none;}
+.ul_ingredients li:hover div {background-color: lightblue;}
+.ul_ingredients li .delete div {display: none;}
 .ul_ingredients li:hover .delete {display: inline-block;}
 /*  Cooking Steps */
 .ol_cooking_steps {padding: 0px;}
-.ol_cooking_steps li:hover {background-color: lightblue;}
-.ol_cooking_steps li .delete {display: none;}
-.ol_cooking_steps li:hover .delete {display: inline-block;}
+.ol_cooking_steps li:hover div {background-color: lightblue;}
+.ol_cooking_steps li .delete div {display: none;}
+.ol_cooking_steps li:hover .delete div {display: inline-block;}
 
 .section{margin: 10px}
 
