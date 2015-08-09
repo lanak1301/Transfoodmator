@@ -7,11 +7,11 @@
 https://wdi-dc6-lana-transfoodmator.herokuapp.com/users/sign_in
 
 ###Wire Frames
-https://drive.google.com/file/d/0B4hnQ9Bdwqx9Q25WdmlKZ0dNMlk/view?usp=sharing
+https://drive.google.com/file/d/0B4hnQ9Bdwqx9VEVLYUdxX0pNc2M/view?usp=sharing
 
 ###Entity Relation Diagram
 
-https://dochub.com/d03a073df7c950ba/5R5RNJ/transfoodmator.pdf
+https://drive.google.com/file/d/0B4hnQ9Bdwqx9ZUstS0Mtb1RzcEU/view?usp=sharing
 
 ###User Stories
 
