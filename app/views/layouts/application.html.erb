@@ -2,7 +2,8 @@
 <html>
 <head>
   <title>Transfoodmator</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Latest compiled and minified CSS -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
   <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Poiret+One|Oswald|Pacifico|Josefin+Sans:400,700,600' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -13,13 +14,11 @@
   <div id="container">
     <header>
       <div id='header_container'>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
 
+        <%= link_to (root_path) do %>
+          <h1 class='logo'>Transfoodmator</h1>
+        <% end %>
         <% if user_signed_in? %>
-          <%= link_to (root_path) do %>
-            <h1 class='logo'>Transfoodmator</h1>
-          <% end %>
           <div id='nav_menu' style='float:right'>
             <span style='float:left'><%= link_to 'Add Recipe', new_user_recipe_path(current_user)%></span>
             <span style='float:left'><%= link_to 'My Board', user_path(current_user)%></span>
@@ -37,7 +36,7 @@
                       <td>
                         &nbsp;&nbsp;<%= current_user.name %><br/>
                         &nbsp;&nbsp;<%= link_to('<i class="fa fa-cog"></i> Edit'.html_safe, edit_user_registration_path).gsub("\"", "'") %><br/>
-                        &nbsp;&nbsp;<%= link_to( '<i class="fa fa-sign-out"></i> Out'.html_safe , destroy_user_session_path, method: :delete).gsub("\"", "'") %>
+                        &nbsp;&nbsp;<%= link_to('<i class="fa fa-sign-out"></i> Out'.html_safe , destroy_user_session_path, method: :delete).gsub("\"", "'") %>
                       </td>
                     </tr>
                   </tbody>

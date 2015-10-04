@@ -1,70 +1,245 @@
-html, body {margin: 0; padding: 0;}
-body {font-size: 1.6em;}
+html, body {
+  /*margin: 0 auto;*/
+  padding: 0;
+}
+body.form-page {
+  font-size: 1.6em;
+  background-image: url(http://i.imgur.com/pmASuX5.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+/*  SignIn, SignUp Forms   */
+.devise-forms {
+  color: rgba(0,0,0,0.7);
+  background: rgba(255,255,255,0.6);
+  padding: 20px 40px;
+  width: 50%;
+  margin: 20px auto;
+}
+.devise-forms a {
+  text-decoration: none;
+  color: rgba(0,0,0,0.5);
+  padding: 0 30px;
+}
+.field, .actions {
+  margin: 5px 0 20px 0;
+}
+.devise-forms input {
+  padding: 9px;
+  border: solid 1px black;
+  width: 300px;
+  background: whitesmoke;
+  /*text-align: center;*/
+}
+.actions input {
+  background: #ccc;
+}
+input #user_remember_me {
+  width: auto;
+}
+#user_avatar {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+/*  Fixing Bootstrap*/
+.alert {
+  margin: 0;
+}
+
+
+
 /*  Center container  */
-div#container{text-align: left;}
-main {max-width: 960px;margin:auto;}
-.wrapper{float:left;width:100%;}
-.content{margin: 0 150px; padding: 10px; height: 100vh; overflow: scroll; font-family: 'Poiret One', cursive;}
-.content p{line-height:1.4}
+div#container{
+  text-align: left;
+}
+main {
+  margin: auto;
+  max-width: 960px;
+}
+
+.wrapper{
+  float:left;
+  width:100%;
+}
+.content{
+  margin: 0 150px;
+  padding: 10px;
+  height: 100vh;
+  overflow: scroll;
+  font-family: 'Poiret One', cursive;
+}
+.content p{
+  line-height:1.4;
+}
 
 /*  Right Container  */
-.navigation ul{margin:15px 0;padding:0;list-style-type:none;}
-.navigation li{margin-bottom:5px;}
-.navigation{float:left;width:150px;height:100vh;margin-left:-150px;padding: 10px;border-left: 1px gray solid; font-family: 'Josefin Sans', sans-serif; font-weight: 600;}
+.navigation ul{
+  margin:15px 0;
+  padding:0;
+  list-style-type:none;
+}
+.navigation li{
+  margin-bottom:5px;
+}
+.navigation{
+  float:left;
+  width:150px;
+  height:100vh;
+  margin-left:-150px;
+  padding: 10px;
+  border-left: 1px gray solid;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 600;}
 
 /*  Left Container  */
-.profile{float:left;width:150px; height:100vh;margin-left:-960px; padding: 10px;border-right: 1px gray solid; font-family: 'Josefin Sans', sans-serif;}
-.profile img {width: 100%;}
+.profile{
+  float:left;
+  width:150px;
+  height:100vh;
+  margin-left:-960px;
+  padding: 10px;
+  border-right: 1px gray solid;
+  font-family: 'Josefin Sans', sans-serif;
+}
+.profile img {
+  width: 100%;
+}
 
 /*  Header Styles */
-header{background: #cff;}
-header {height: 80px; line-height: 80px; font-family: 'Josefin Sans', sans-serif; font-weight: 700;}
-div#header_container {max-width: 960px; margin: auto;}
-.logo {height: 30px; float: left; font-family: 'Pacifico', cursive; padding: 0; margin: 0;}
-.profile_pic_tiny {float: right; margin: auto 60px; border-radius: 50%; border: 2px solid purple; cursor: pointer;}
+header {
+  background: rgba(0,0,0,0.2);
+}
+header {
+  padding: 20px;
+  height: 80px;
+  line-height: 80px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+}
+
+div#header_container {
+  max-width: 960px;
+  margin: auto;
+}
+.logo {
+  height: 30px;
+  float: left;
+  font-family: 'Pacifico', cursive;
+  padding: 0;
+  margin: 0;}
+.profile_pic_tiny {
+  float: right;
+  margin: auto 60px;
+  border-radius: 50%;
+  border: 2px solid purple;
+  cursor: pointer;
+}
 /*   Popover Nav Menu */
-.popover {margin-top: 10px; float: right;}
-div#nav_menu span {line-height: initial; padding: 10px 10px;}
-.nav_links {width: auto; height: 80px;}
-th {text-align: center;}
+.popover {
+  margin-top: 10px;
+  float: right;
+}
+div#nav_menu span {
+  line-height: initial;
+  padding: 10px 10px;
+}
+.nav_links {
+  width: auto;
+  height: 80px;
+}
+th {
+  text-align: center;
+}
 
 /*  My Board on Show View */
-.recipe_container{float:left; padding: 6px;}
+.recipe_container{
+  float:left;
+  padding: 6px;
+}
 
 /* Recipe Show*/
-.row{margin: 10px 0;}
-/*  Recipe Title  */
-.recipe_title{font-weight:bolder;}
-.title_link{font-size: initial;}
+.row{
+  margin: 10px 0;
+}
+
+.title_link{
+  font-size: initial;
+}
 /*  Recipe Form */
-div.input_title input {width: 50%;}
-div.nested_input_title input {width: 100%;}
-div.nested2_input_title input {width: 75%;}
+div.input_title input {
+  width: 50%;
+}
+div.nested_input_title input {
+  width: 100%;
+}
+div.nested2_input_title input {
+  width: 75%;
+}
 /*  Form Avatar Preview*/
-.avatar_preview{width:100px; height:100px;}
-input {margin: 5px;}
-input[type="file"] {display: inline;vertical-align: bottom;}
-label{vertical-align: -webkit-baseline-middle;}
+
+input[type="file"] {
+  display: inline;
+  vertical-align: bottom;
+}
+label{
+  vertical-align: -webkit-baseline-middle;
+}
 
 /*  Ingredients, Cooking Steps*/
-ul, ol {list-style-type: none;}
-.delete{cursor:pointer;}
+ul, ol {
+  list-style-type: none;
+}
+.delete{
+  cursor:pointer;
+}
 /*  Ingredient items  */
-.ul_ingredients {padding: 0px;}
-.ul_ingredients li:hover div {background-color: lightblue;}
-.ul_ingredients li .delete  {display: none;}
-.ul_ingredients li:hover .delete {display: inline-block;}
+.ul_ingredients {
+  padding: 0px;
+}
+.ul_ingredients li:hover div {
+  background-color: lightblue;
+}
+.ul_ingredients li .delete  {
+  display: none;
+}
+.ul_ingredients li:hover .delete {
+  display: inline-block;
+}
 /*  Cooking Steps */
-.ol_cooking_steps {padding: 0px;}
-.ol_cooking_steps li:hover div {background-color: lightblue;}
-.ol_cooking_steps li .delete  {display: none;}
-.ol_cooking_steps li:hover .delete div {display: inline-block;}
+.ol_cooking_steps {
+  padding: 0px;
+}
+.ol_cooking_steps li:hover div {
+  background-color: lightblue;
+}
+.ol_cooking_steps li .delete  {
+  display: none;
+}
+.ol_cooking_steps li:hover .delete div {
+  display: inline-block;
+}
 
-.section{margin: 10px}
+.section{
+  margin: 10px
+}
 
 
 /*Fixing */
-p {margin: 0;}
-h2 {margin-top: 0;}
-.alert {padding: 0px;}
-.popover .fade .bottom .in {top: 66px; left: 1996px; display: block;}
+p {
+  margin: 0;
+}
+h2 {
+  margin-top: 0;
+}
+.alert {
+  padding: 0px;
+}
+.popover .fade .bottom .in {
+  top: 66px;
+  left: 1996px;
+  display: block;
+}
