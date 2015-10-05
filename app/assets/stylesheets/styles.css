@@ -1,5 +1,4 @@
 html, body {
-  /*margin: 0 auto;*/
   padding: 0;
 }
 body.form-page {
@@ -14,13 +13,13 @@ body.form-page {
   color: rgba(0,0,0,0.7);
   background: rgba(255,255,255,0.6);
   padding: 20px 40px;
-  width: 50%;
+  width: 40%;
   margin: 20px auto;
 }
 .devise-forms a {
   text-decoration: none;
   color: rgba(0,0,0,0.5);
-  padding: 0 30px;
+  padding: 0 20px;
 }
 .field, .actions {
   margin: 5px 0 20px 0;
@@ -30,12 +29,12 @@ body.form-page {
   border: solid 1px black;
   width: 300px;
   background: whitesmoke;
-  /*text-align: center;*/
+  text-align: center;
 }
 .actions input {
   background: #ccc;
 }
-input #user_remember_me {
+input#user_remember_me {
   width: auto;
 }
 #user_avatar {
